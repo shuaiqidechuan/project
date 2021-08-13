@@ -11,6 +11,14 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
+const (
+	userName = "root"
+	password = "123456"
+	ip       = "192.168.0.251"
+	port     = "6666"
+	dbName   = "project"
+)
+
 type Shibor struct {
 	infoDate   time.Time `json:"date"`
 	overNight  float32   `json:"O/N`
