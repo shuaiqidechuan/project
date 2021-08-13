@@ -11,15 +11,15 @@ import (
 )
 
 type Shibor struct {
-	infoDate   time.Time `json:"date"`
-	overNight  float32   `json:"O/N`
-	oneWeek    float32   `json:"1W"`
-	twoWeek    float32   `json:"2W"`
-	oneMonth   float32   `json:"1M"`
-	threeMonth float32   `json:"3M"`
-	sixMonth   float32   `json:"6M"`
-	nineMonth  float32   `json:"9M"`
-	oneYear    float32   `json:"1Y"`
+	InfoDate   time.Time `json:"date"`
+	OverNight  float32   `json:"O/N"`
+	OneWeek    float32   `json:"1W"`
+	TwoWeek    float32   `json:"2W"`
+	OneMonth   float32   `json:"1M"`
+	ThreeMonth float32   `json:"3M"`
+	SixMonth   float32   `json:"6M"`
+	NineMonth  float32   `json:"9M"`
+	OneYear    float32   `json:"1Y"`
 }
 
 func Insert(db *sql.DB, infoDate time.Time, overNight float32, oneWeek float32, twoWeek float32, oneMonth float32,
@@ -36,11 +36,6 @@ func Insert(db *sql.DB, infoDate time.Time, overNight float32, oneWeek float32, 
 }
 
 func main() {
-	// defer func() {
-	// 	if err := recover(); err != nil {
-	// 		fmt.Println("connect fail", err)
-	// 	}
-	// }()
 	db, err := sql.Open("mysql", "root:123456@tcp(192.168.0.1:6666)/project")
 	if err != nil {
 		log.Println("connect fail", err)
@@ -50,8 +45,8 @@ func main() {
 	defer db.Close()
 	r := gin.Default()
 	r.POST("/shibor", func(c *gin.Context) {
-		Insert(db, shibor.infoDate, shibor.overNight, shibor.oneWeek, shibor.twoWeek, shibor.oneMonth,
-			shibor.threeMonth, shibor.sixMonth, shibor.nineMonth, shibor.oneYear)
+		Insert(db, shibor.InfoDate, shibor.OverNight, shibor.OneWeek, shibor.TwoWeek, shibor.OneMonth,
+			shibor.ThreeMonth, shibor.SixMonth, shibor.NineMonth, shibor.OneYear)
 		c.JSON(http.StatusOK, "shibor")
 	})
 	r.Run(":8080")
