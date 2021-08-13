@@ -2,7 +2,6 @@ package main
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 	"net/http"
 	"time"
@@ -30,14 +29,14 @@ func Insert(db *sql.DB, infoDate time.Time, oneYear float32, fiveYear float32) {
 }
 
 func main() {
-	defer func() {
-		if err := recover(); err != nil {
-			fmt.Println("connect fail", err)
-		}
-	}()
+	// defer func() {
+	// 	if err := recover(); err != nil {
+	// 		fmt.Println("connect fail", err)
+	// 	}
+	// }()
 	db, err := sql.Open("mysql", "root:123456@tcp(192.168.0.251:6666)/project")
 	if err != nil {
-		panic(err)
+		log.Println("connect fail", err)
 	}
 
 	lpr := Lpr{}

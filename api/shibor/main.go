@@ -2,21 +2,12 @@ package main
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 	"net/http"
 	"time"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
-)
-
-const (
-	userName = "root"
-	password = "123456"
-	ip       = "192.168.0.251"
-	port     = "6666"
-	dbName   = "project"
 )
 
 type Shibor struct {
@@ -45,14 +36,14 @@ func Insert(db *sql.DB, infoDate time.Time, overNight float32, oneWeek float32, 
 }
 
 func main() {
-	defer func() {
-		if err := recover(); err != nil {
-			fmt.Println("connect fail", err)
-		}
-	}()
-	db, err := sql.Open("mysql", "root:123456@tcp(192.168.0.251:6666)/project")
+	// defer func() {
+	// 	if err := recover(); err != nil {
+	// 		fmt.Println("connect fail", err)
+	// 	}
+	// }()
+	db, err := sql.Open("mysql", "root:123456@tcp(192.168.0.1:6666)/project")
 	if err != nil {
-		panic(err)
+		log.Println("connect fail", err)
 	}
 
 	shibor := Shibor{}
