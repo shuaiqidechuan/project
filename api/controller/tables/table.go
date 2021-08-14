@@ -51,7 +51,7 @@ func (s *Controller) insertShibor(c *gin.Context) {
 		return
 	}
 
-	id, err := mysql.InsertShibor(s.db, req.InfoDate, req.OverNight, req.OneWeek, req.TwoWeek,
+	shibor, err := mysql.InsertShibor(s.db, req.InfoDate, req.OverNight, req.OneWeek, req.TwoWeek,
 		req.OneMonth, req.ThreeMonth, req.SixMonth, req.NineMonth, req.OneYear)
 	if err != nil {
 		c.Error(err)
@@ -59,7 +59,7 @@ func (s *Controller) insertShibor(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"status": http.StatusOK, "ID": id})
+	c.JSON(http.StatusOK, gin.H{"status": http.StatusOK, "shibor": shibor})
 
 }
 
@@ -78,14 +78,14 @@ func (s *Controller) insertLpr(c *gin.Context) {
 		return
 	}
 
-	id, err := mysql.InsertLpr(s.db, req.InfoDate, req.OneYear, req.FiveYear)
+	lpr, err := mysql.InsertLpr(s.db, req.InfoDate, req.OneYear, req.FiveYear)
 	if err != nil {
 		c.Error(err)
 		c.JSON(http.StatusBadGateway, gin.H{"status": http.StatusBadGateway})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"status": http.StatusOK, "ID": id})
+	c.JSON(http.StatusOK, gin.H{"status": http.StatusOK, "lpr": lpr})
 
 }
 
