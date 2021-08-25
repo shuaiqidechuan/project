@@ -47,7 +47,7 @@ func (s *Controller) insertShibor(c *gin.Context) {
 	err := c.ShouldBind(&req)
 	if err != nil {
 		c.Error(err)
-		c.JSON(http.StatusBadRequest, gin.H{"status": http.StatusBadRequest})
+		c.JSON(http.StatusBadGateway, gin.H{"status": http.StatusBadGateway})
 		return
 	}
 
@@ -55,7 +55,7 @@ func (s *Controller) insertShibor(c *gin.Context) {
 		req.OneMonth, req.ThreeMonth, req.SixMonth, req.NineMonth, req.OneYear)
 	if err != nil {
 		c.Error(err)
-		c.JSON(http.StatusBadGateway, gin.H{"status": http.StatusBadGateway})
+		c.JSON(http.StatusBadRequest, gin.H{"status": http.StatusBadRequest})
 		return
 	}
 
@@ -74,14 +74,14 @@ func (s *Controller) insertLpr(c *gin.Context) {
 	err := c.ShouldBind(&req)
 	if err != nil {
 		c.Error(err)
-		c.JSON(http.StatusBadRequest, gin.H{"status": http.StatusBadRequest})
+		c.JSON(http.StatusBadGateway, gin.H{"status": http.StatusBadGateway})
 		return
 	}
 
 	lpr, err := mysql.InsertLpr(s.db, req.InfoDate, req.OneYear, req.FiveYear)
 	if err != nil {
 		c.Error(err)
-		c.JSON(http.StatusBadGateway, gin.H{"status": http.StatusBadGateway})
+		c.JSON(http.StatusBadRequest, gin.H{"status": http.StatusBadRequest})
 		return
 	}
 
@@ -107,14 +107,14 @@ func (s *Controller) queryShibor(c *gin.Context) {
 	err := c.ShouldBind(&req)
 	if err != nil {
 		c.Error(err)
-		c.JSON(http.StatusBadRequest, gin.H{"status": http.StatusBadRequest})
+		c.JSON(http.StatusBadGateway, gin.H{"status": http.StatusBadGateway})
 		return
 	}
 
 	shibor, err := mysql.QueryShibor(s.db)
 	if err != nil {
 		c.Error(err)
-		c.JSON(http.StatusBadGateway, gin.H{"status": http.StatusBadGateway})
+		c.JSON(http.StatusBadRequest, gin.H{"status": http.StatusBadRequest})
 		return
 	}
 
@@ -133,14 +133,14 @@ func (s *Controller) queryLpr(c *gin.Context) {
 	err := c.ShouldBind(&req)
 	if err != nil {
 		c.Error(err)
-		c.JSON(http.StatusBadRequest, gin.H{"status": http.StatusBadRequest})
+		c.JSON(http.StatusBadGateway, gin.H{"status": http.StatusBadGateway})
 		return
 	}
 
 	lpr, err := mysql.QueryLpr(s.db)
 	if err != nil {
 		c.Error(err)
-		c.JSON(http.StatusBadGateway, gin.H{"status": http.StatusBadGateway})
+		c.JSON(http.StatusBadRequest, gin.H{"status": http.StatusBadRequest})
 		return
 	}
 
